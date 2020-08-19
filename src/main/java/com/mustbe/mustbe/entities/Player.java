@@ -18,9 +18,11 @@ public class Player {
     private String password;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Inscription> inscriptions;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Event> createdEvents;
 
     public Player() {}
@@ -34,6 +36,38 @@ public class Player {
         this.password = password;
         this.inscriptions = inscriptions;
         this.createdEvents = events;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Inscription> getInscriptions() {
+        return inscriptions;
+    }
+
+    public void setInscriptions(List<Inscription> inscriptions) {
+        this.inscriptions = inscriptions;
+    }
+
+    public List<Event> getCreatedEvents() {
+        return createdEvents;
+    }
+
+    public void setCreatedEvents(List<Event> createdEvents) {
+        this.createdEvents = createdEvents;
     }
 
     public String getPhone() {
