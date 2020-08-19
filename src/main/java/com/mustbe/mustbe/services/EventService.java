@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -27,6 +28,14 @@ public class EventService {
         event.setOwner(player);
         eventRepository.save(event);
         return event;
+    }
+
+    @Transactional
+    public Event findById(long eventId){
+        Optional<Event> event = eventRepository.findById(eventId);
+        if(event.isPresent())
+            return event.get();
+        return null;
     }
 
 }

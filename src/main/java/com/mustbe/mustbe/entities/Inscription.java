@@ -17,6 +17,12 @@ public class Inscription {
     @ManyToOne
     private Event event;
 
+    public Inscription(){}
+    public Inscription(Event event, Player player){
+        this.event = event;
+        this.player = player;
+    }
+
     public long getId() {
         return id;
     }
