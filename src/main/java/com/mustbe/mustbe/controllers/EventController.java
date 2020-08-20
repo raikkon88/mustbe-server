@@ -1,10 +1,12 @@
 package com.mustbe.mustbe.controllers;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mustbe.mustbe.entities.Event;
 import com.mustbe.mustbe.entities.Player;
 import com.mustbe.mustbe.exceptions.ServiceException;
 import com.mustbe.mustbe.services.EventService;
+import com.mustbe.mustbe.views.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,11 @@ public class EventController {
         }
     }
 
+    @GetMapping
+    @JsonView(Views.Event.class)
+    public ResponseEntity<?> getAllEvents(UsernamePasswordAuthenticationToken token) {
+        return new ResponseEntity<>(eventService.findAll(), HttpStatus.OK);
+    }
 
 
 }

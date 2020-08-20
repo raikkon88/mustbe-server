@@ -1,8 +1,10 @@
 package com.mustbe.mustbe.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mustbe.mustbe.entities.Game;
 import com.mustbe.mustbe.exceptions.ServiceException;
 import com.mustbe.mustbe.services.GameService;
+import com.mustbe.mustbe.views.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping
+    @JsonView(Views.Game.class)
     public ResponseEntity<?> getGames(UsernamePasswordAuthenticationToken token) {
         return new ResponseEntity<>(gameService.getGames(), HttpStatus.OK);
     }

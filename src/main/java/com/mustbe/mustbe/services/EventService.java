@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,11 @@ public class EventService {
         if(event.isPresent())
             return event.get();
         return null;
+    }
+
+    @Transactional
+    public Iterable<Event> findAll() {
+        return eventRepository.findAll();
     }
 
 }

@@ -2,6 +2,8 @@ package com.mustbe.mustbe.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mustbe.mustbe.views.Views;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,14 +14,18 @@ public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Public.class)
     private long id;
 
+    @JsonView(Views.Public.class)
     private String name;
+    @JsonView(Views.Public.class)
     private int maxPlayers;
+    @JsonView(Views.Public.class)
     private int minPlayers;
 
     @OneToMany(mappedBy = "game")
-    @JsonIgnore
+    @JsonView(Views.Game.class)
     private List<Event> events;
 
     public long getId() {

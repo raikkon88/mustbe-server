@@ -1,5 +1,7 @@
 package com.mustbe.mustbe.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mustbe.mustbe.views.Views;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -11,18 +13,20 @@ public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Public.class})
     private long id;
 
+    @JsonView({Views.Public.class})
     private String phone;
     @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonView({Views.Player.class})
     private List<Inscription> inscriptions;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonView({Views.Player.class})
     private List<Event> createdEvents;
 
     public Player() {}

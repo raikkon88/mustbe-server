@@ -1,6 +1,8 @@
 package com.mustbe.mustbe.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mustbe.mustbe.views.Views;
 
 import javax.persistence.*;
 
@@ -9,12 +11,15 @@ public class Inscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Public.class)
     private long id;
 
     @ManyToOne
+    @JsonView({Views.Event.class, Views.Inscription.class})
     private Player player;
 
     @ManyToOne
+    @JsonView({Views.Player.class, Views.Inscription.class})
     private Event event;
 
     public Inscription(){}

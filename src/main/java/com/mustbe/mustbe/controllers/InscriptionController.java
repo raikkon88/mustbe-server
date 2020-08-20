@@ -1,8 +1,10 @@
 package com.mustbe.mustbe.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mustbe.mustbe.entities.Player;
 import com.mustbe.mustbe.exceptions.ServiceException;
 import com.mustbe.mustbe.services.InscriptionService;
+import com.mustbe.mustbe.views.Views;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +20,14 @@ public class InscriptionController {
     private InscriptionService inscriptionService;
 
     @GetMapping
+    @JsonView(Views.Inscription.class)
     public ResponseEntity<?> getInscriptions(UsernamePasswordAuthenticationToken token) {
         Player player = (Player) token.getPrincipal();
         return new ResponseEntity<>(inscriptionService.getInscriptionsByPlayerId(player.getId()), HttpStatus.OK);
     }
 
     @GetMapping("/{eventId}")
+    @JsonView(Views.Inscription.class)
     public ResponseEntity<?> getInscriptionsFromEvent(@PathVariable long eventId) {
         return new ResponseEntity<>(inscriptionService.getInscriptionsByEventId(eventId), HttpStatus.OK);
     }

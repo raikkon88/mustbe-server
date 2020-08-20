@@ -1,6 +1,7 @@
 package com.mustbe.mustbe.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mustbe.mustbe.views.Views;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -11,23 +12,30 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Public.class)
     private long id;
 
+    @JsonView(Views.Public.class)
     private String address;
+    @JsonView(Views.Public.class)
     private String rules;
+    @JsonView(Views.Public.class)
     private double lat;
+    @JsonView(Views.Public.class)
     private double lon;
-
+    @JsonView(Views.Public.class)
     private Calendar startDate;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView({Views.Event.class})
     private List<Inscription> inscriptions;
 
     @ManyToOne
+    @JsonView(Views.Event.class)
     private Player owner;
 
     @ManyToOne
+    @JsonView({Views.EventPlayer.class, Views.Inscription.class})
     private Game game;
 
     public long getId() {
