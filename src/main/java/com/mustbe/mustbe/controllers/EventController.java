@@ -21,6 +21,7 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping("/{gameId}")
+    @JsonView(Views.Event.class)
     public ResponseEntity<?> createNewEvent(UsernamePasswordAuthenticationToken token,
                                             @PathVariable long gameId,
                                             @RequestBody Event event){
