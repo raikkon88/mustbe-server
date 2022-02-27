@@ -33,6 +33,7 @@ public class InscriptionController {
     }
 
     @PostMapping("/{eventId}")
+    @JsonView(Views.Inscription.class)
     public ResponseEntity<?> subscribeEvent(UsernamePasswordAuthenticationToken token,
                                          @PathVariable long eventId){
         Player player = (Player) token.getPrincipal();
@@ -44,6 +45,7 @@ public class InscriptionController {
     }
 
     @DeleteMapping("/{eventId}")
+    @JsonView(Views.Inscription.class)
     public ResponseEntity<?> unsubscribeEvent(UsernamePasswordAuthenticationToken token,
                                               @PathVariable long eventId){
         Player player = (Player) token.getPrincipal();
